@@ -1,6 +1,6 @@
 [submodule "vendors/typescript-definitions"]
-	path = vendors/typescript-definitions
+	path = web_executor/crates/typescript-definitions
 	url = git@github.com:storyscript/typescript-definitions.git
 [submodule "vendors/shipyard-ts"]
-	path = vendors/shipyard-ts
+	path = web_ui/packages/shipyard-ts
 	url = git@github.com:colelawrence/shipyard-ts.git

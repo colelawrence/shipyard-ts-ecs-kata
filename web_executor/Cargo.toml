@@ -1,0 +1,20 @@
+[package]
+name = "web_executor"
+version = "0.1.0"
+authors = ["Cole Lawrence <cole@colelawrence.com>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# other versions of typescript-definitions seem to be fractured and out of date...
+# make sure you run `git submodule update --init --recursive` or something to fetch
+typescript-definitions = { version = "0.1.11", path = "./crates/typescript-definitions", features=["type-enum-factories", "type-enum-handlers"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.52"
+anyhow = "1.0.28"
+console_error_panic_hook = "0.1.6"
+wasm-bindgen = "0.2.62"
