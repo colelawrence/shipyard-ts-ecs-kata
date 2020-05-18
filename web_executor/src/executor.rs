@@ -20,7 +20,7 @@ pub enum ToUI {
 
 // https://serde.rs/enum-representations.html
 #[derive(Debug, Serialize, TypeScriptDefinition)]
-pub struct Point {
+pub struct Position {
     x: usize,
     y: usize,
 }
@@ -28,5 +28,20 @@ pub struct Point {
 #[derive(Debug, Serialize, TypeScriptDefinition)]
 #[serde(tag = "t", content = "c")]
 pub enum Renderable {
-    GridSquare(String),
+    Character(String),
 }
+
+#[derive(Debug, Serialize, TypeScriptDefinition)]
+pub struct Hero {}
+
+#[derive(Debug, Serialize, TypeScriptDefinition)]
+#[serde(tag = "t", content = "c")]
+pub enum InputCommand {
+    MoveDown,
+    MoveUp,
+    MoveLeft,
+    MoveRight,
+}
+
+#[derive(Debug, Serialize, TypeScriptDefinition)]
+pub struct InputCommands(Vec<InputCommand>);
