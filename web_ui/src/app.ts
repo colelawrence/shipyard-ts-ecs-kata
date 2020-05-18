@@ -1,7 +1,8 @@
 import { ui } from "./executor";
 import { invariant } from "@helpers";
-import { World, iter, unique } from "shipyard";
-import { GridRender } from './GridRender';
+import { World, iter, System } from "shipyard";
+import { GridRender } from "./GridRender";
+import { moving_character } from "./moving_character";
 
 function NewGame(viewElt: HTMLCanvasElement) {
   invariant(
@@ -49,40 +50,7 @@ function NewGame(viewElt: HTMLCanvasElement) {
 
   world
     .add_workload("default")
-    .with_system(
-      {
-        inputCommands: unique(ui.InputCommands),
-        hero: ui.Hero,
-        pos: ui.Position,
-      },
-      (v) => {
-        let command: ui.InputCommand | undefined;
-        while ((command = v.inputCommands.shift())) {
-          ui.applyInputCommand({
-            onMoveDown() {
-              for (const [_, pos] of iter(v.hero, v.pos)) {
-                pos.y += 1;
-              }
-            },
-            onMoveLeft() {
-              for (const [_, pos] of iter(v.hero, v.pos)) {
-                pos.x -= 1;
-              }
-            },
-            onMoveRight() {
-              for (const [_, pos] of iter(v.hero, v.pos)) {
-                pos.x += 1;
-              }
-            },
-            onMoveUp() {
-              for (const [_, pos] of iter(v.hero, v.pos)) {
-                pos.y -= 1;
-              }
-            },
-          })(command);
-        }
-      }
-    )
+    .with_system(moving_character)
     .with_system(
       {
         pos: ui.Position,
@@ -100,6 +68,9 @@ function NewGame(viewElt: HTMLCanvasElement) {
       }
     )
     .build();
+
+  // first cycle
+  world.run_default();
 }
 
 NewGame(document.getElementById("game") as HTMLCanvasElement);
