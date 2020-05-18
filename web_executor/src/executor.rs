@@ -23,7 +23,6 @@ pub enum ToUI {
 pub struct Point {
     x: usize,
     y: usize,
-    z: usize,
 }
 
 #[derive(Debug, Serialize, TypeScriptDefinition)]
