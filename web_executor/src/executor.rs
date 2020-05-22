@@ -1,24 +1,5 @@
 use super::prelude::*;
 
-// https://serde.rs/enum-representations.html
-#[derive(Debug, Serialize, Deserialize, TypeScriptDefinition)]
-#[serde(tag = "e", content = "c")]
-#[ts(factory_return_name = "Executor")]
-pub enum ToExecutor {
-    Ping,
-    SetDebug(bool),
-}
-
-// https://serde.rs/enum-representations.html
-#[derive(Debug, Serialize, TypeScriptDefinition)]
-#[serde(tag = "t", content = "c")]
-#[ts(handler_name = "UI")]
-pub enum ToUI {
-    Pong,
-    DebugMessage { context: String, message: String },
-}
-
-// https://serde.rs/enum-representations.html
 #[derive(Debug, Serialize, TypeScriptDefinition)]
 pub struct Position {
     x: usize,
@@ -26,13 +7,35 @@ pub struct Position {
 }
 
 #[derive(Debug, Serialize, TypeScriptDefinition)]
-#[serde(tag = "t", content = "c")]
-pub enum Renderable {
-    Character(String),
+pub struct Velocity {
+    x: usize,
+    y: usize,
 }
 
 #[derive(Debug, Serialize, TypeScriptDefinition)]
-pub struct Hero {}
+pub struct Size {
+    width: usize,
+    height: usize,
+}
+
+#[derive(Debug, Serialize, TypeScriptDefinition)]
+pub struct WalkTowards {
+    id: String,
+}
+
+#[derive(Debug, Serialize, TypeScriptDefinition)]
+pub struct Renderable {
+    imageID: String,
+    origin_x: usize,
+    origin_y: usize,
+    width: usize,
+    height: usize,
+}
+
+#[derive(Debug, Serialize, TypeScriptDefinition)]
+pub struct Hero {
+    speed: i32,
+}
 
 #[derive(Debug, Serialize, TypeScriptDefinition)]
 #[serde(tag = "t", content = "c")]
